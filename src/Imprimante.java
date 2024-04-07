@@ -7,11 +7,19 @@ public class Imprimante {
     protected int categorie;
 
     // CONSTRUCTEURS
+    public Imprimante(){
+        this.nbrCopieParS = 0;
+        this.alimentation = 0;
+        this.dimPapMax = "Inconu";
+        this.marque = "Inconu";
+        this.setCategorie();
+    }
     public  Imprimante(int nCoPaS, double alim, String dpm, String mrq){
         this.nbrCopieParS = nCoPaS;
         this.alimentation = alim;
         this.dimPapMax = dpm;
         this.marque = mrq;
+        this.setCategorie();
     }
 
     // GETTERS
@@ -44,19 +52,23 @@ public class Imprimante {
     }
     public void setDimPapMax(String dimPapMax) {
         this.dimPapMax = dimPapMax;
+        this.setCategorie();
     }
 
     public void setCategorie() {
         String[] dim = {"A4", "A3", "A2", "A1", "A0"};
         int categorie[] = {1, 2, 3, 4, 5};
-        int i = 0;
-        while (i < dim.length && this.dimPapMax.equals(dim[i])){
-            this.categorie = categorie[i];
+        for (int i = 0; i < dim.length; i++) {
+            if (this.dimPapMax.equals(dim[i])) {
+                this.categorie = categorie[i];
+                return; // Sortir de la méthode dès que la correspondance est trouvée
+            }
         }
+        // Si aucune correspondance n'est trouvée, la catégorie reste inchangée
     }
 
     // LES METHODES
-    public String comparaison(Imprimante I1 ){
+    public String comparaison( Imprimante I1 ){
         String str = new String();
         if (I1.getNbrCopieParS() > this.nbrCopieParS && I1.getCategorie() > this.categorie){
             System.out.println(I1.getMarque()+" est plus performant que "+this.marque);
@@ -68,7 +80,15 @@ public class Imprimante {
             System.out.println(I1.getMarque()+" a la même perf que "+this.marque);
         }
         else if (I1.getNbrCopieParS() > this.nbrCopieParS && I1.getCategorie() < this.categorie){
-
+            System.out.println(I1.getMarque()+" peut faire plus de copie en une minute que "+this.marque+"\nmais" +
+                    " "+this.marque+" peut suporter des dimensions de papier plus grand que "+I1.getMarque());
+        }
+        else if (I1.getNbrCopieParS() < this.nbrCopieParS && I1.getCategorie() > this.categorie){
+            System.out.println(I1.getMarque()+" peut faire moins de copie en une minute que "+this.marque+"\nmais" +
+                    " "+this.marque+" ne peut pas suporter des dimensions de papier plus grand que "+I1.getMarque());
+        }
+        else{
+            System.out.println("impossible de faire la comparaison");
         }
         return str;
     }
