@@ -56,9 +56,18 @@ public class Imprimante {
     }
 
     // LES METHODES
-    public String comparaison(Imprimante I1){
+    public String comparaison(Imprimante I1 ){
         String str = new String();
         if (I1.getNbrCopieParS() > this.nbrCopieParS && I1.getCategorie() > this.categorie){
+            System.out.println(I1.getMarque()+" est plus performant que "+this.marque);
+        }
+        else if (I1.getNbrCopieParS() < this.nbrCopieParS && I1.getCategorie() < this.categorie) {
+            System.out.println(I1.getMarque()+" est moins performant que "+this.marque);
+        }
+        else if (I1.getNbrCopieParS() == this.nbrCopieParS && I1.getCategorie() == this.categorie) {
+            System.out.println(I1.getMarque()+" a la même perf que "+this.marque);
+        }
+        else if (I1.getNbrCopieParS() > this.nbrCopieParS && I1.getCategorie() < this.categorie){
 
         }
         return str;
